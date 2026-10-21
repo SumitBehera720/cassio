@@ -1,0 +1,9 @@
+{
+  "name": "classio-redesign",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix classio run dev",
+    "build": "npm --prefix classio run build"
+  }
+}
