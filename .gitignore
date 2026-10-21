@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+vendor/
+classio/node_modules/
+classio/vendor/
+
+# Environment files
+.env
+.env.*
+classio/.env
+classio/.env.*
+
+# Logs
+*.log
+classio/storage/logs/
+
+# Build and local
+composer.phar
+scratch/
+.DS_Store
+Thumbs.db
+*.xlsx
