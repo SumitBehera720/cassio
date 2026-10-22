@@ -162,4 +162,70 @@ class CategoryController extends Controller
 
         return view('frontend.category', compact('category', 'products', 'categories'));
     }
+
+    public function searchSuggest(Request $request)
+    {
+        $q = trim($request->get('q', ''));
+        if (strlen($q) < 2) {
+            return response()->json(['categories' => [], 'products' => [], 'total' => 0]);
+        }
+
+        // Matching categories
+        $categories = Category::where('is_active', true)
+            ->where('name', 'like', "%{$q}%")
+            ->orderBy('sort_order')
+            ->take(4)
+            ->get(['id', 'name', 'slug', 'image_path'])
+            ->map(function ($cat) {
+                $imgPath = $cat->image_path ? (str_starts_with($cat->image_path, 'http') ? $cat->image_path : asset($cat->image_path)) : null;
+                $productCount = Product::where('category_id', $cat->id)->where('status', 'active')->count();
+                return [
+                    'id' => $cat->id,
+                    'name' => $cat->name,
+                    'slug' => $cat->slug,
+                    'url' => route('category.show', $cat->slug),
+                    'image' => $imgPath,
+                    'count' => $productCount,
+                ];
+            });
+
+        // Matching products
+        $products = Product::where('status', 'active')
+            ->where(function ($builder) use ($q) {
+                $builder->where('name', 'like', "%{$q}%")
+                        ->orWhere('subtitle', 'like', "%{$q}%")
+                        ->orWhere('description', 'like', "%{$q}%");
+            })
+            ->with(['images', 'variants', 'category'])
+            ->take(6)
+            ->get()
+            ->map(function ($prod) {
+                $image = $prod->images->where('is_primary', true)->first()->image_path 
+                    ?? $prod->images->first()->image_path 
+                    ?? 'images/classio/product_coming_soon.jpg';
+                $imageUrl = str_starts_with($image, 'http') ? $image : asset($image);
+                $variant = $prod->variants->where('is_default', true)->first() ?? $prod->variants->first();
+                $price = $variant->price ?? 0;
+                $compareAt = $variant->compare_at_price ?? null;
+                $discount = ($compareAt && $compareAt > $price) ? round((($compareAt - $price) / $compareAt) * 100) : null;
+
+                return [
+                    'id' => $prod->id,
+                    'name' => $prod->name,
+                    'subtitle' => $prod->subtitle,
+                    'category_name' => $prod->category->name ?? 'Classio',
+                    'price' => number_format($price, 0),
+                    'compare_at' => $compareAt ? number_format($compareAt, 0) : null,
+                    'discount' => $discount,
+                    'image' => $imageUrl,
+                    'url' => route('product.show', $prod->slug),
+                ];
+            });
+
+        return response()->json([
+            'categories' => $categories,
+            'products' => $products,
+            'total' => $categories->count() + $products->count(),
+        ]);
+    }
 }

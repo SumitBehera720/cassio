@@ -453,7 +453,10 @@
         </div>
     </section>
 
-    <!-- 11. NEWSLETTER SIGNUP BANNER (Stay in Style) -->
+    <!-- 11. INSTAGRAM GALLERY -->
+    <x-instagram-gallery />
+
+    <!-- 12. NEWSLETTER SIGNUP BANNER (Stay in Style) -->
     <section class="bg-[#0B1A2C] text-white overflow-hidden relative">
         <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 items-center">
             <div class="md:col-span-8 p-6 sm:p-10 lg:p-16 flex flex-col justify-center">
