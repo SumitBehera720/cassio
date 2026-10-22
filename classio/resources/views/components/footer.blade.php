@@ -1,3 +1,7 @@
+@php
+    $footerWa = \App\Models\Setting::where('key_name', 'whatsapp_number')->value('value') ?? '911234567890';
+    $cleanFooterWa = preg_replace('/[^0-9]/', '', $footerWa);
+@endphp
 <footer class="bg-[#0B1A2C] text-white pt-12 sm:pt-14 select-none border-t border-[#D8C3A5]/15">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 pb-10 sm:pb-12">
@@ -100,11 +104,6 @@
         </div>
     </div>
 </footer>
-
-@php
-    $footerWa = \App\Models\Setting::where('key_name', 'whatsapp_number')->value('value') ?? '911234567890';
-    $cleanFooterWa = preg_replace('/[^0-9]/', '', $footerWa);
-@endphp
 
 <!-- Official Floating WhatsApp Action Button in Bottom Right -->
 <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 group flex items-center gap-2">
