@@ -42,8 +42,12 @@
                             <div class="flex items-start gap-3">
                                 <svg class="w-5 h-5 text-[#D8C3A5] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 <div>
-                                    <strong class="text-white block text-sm">Exhibition Road Flagship</strong>
-                                    Exhibition Road, Near Dak Bungalow Chowk, Patna, Bihar - 800001
+                                    <strong class="text-white block text-sm">Patna Flagship Boutique</strong>
+                                    <span class="text-gray-300 leading-relaxed block">77, near Jaleshwar mandir, near Blinkit Office, LIC Colony, Jogipur, Kankarbagh, Bankman Colony, Patna, Bihar 800026</span>
+                                    <a href="https://maps.app.goo.gl/oziQjtasd953vBiY7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] text-[#D8C3A5] hover:underline mt-1 font-semibold">
+                                        <span>📍 View Pin on Google Maps</span>
+                                        <span>&nearr;</span>
+                                    </a>
                                 </div>
                             </div>
 
@@ -51,7 +55,7 @@
                                 <svg class="w-5 h-5 text-[#D8C3A5] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                                 <div>
                                     <span class="block text-gray-400 text-[11px]">Phone Concierge</span>
-                                    <a href="tel:+911234567890" class="text-white font-medium hover:text-[#D8C3A5]">+91 12345 67890</a>
+                                    <a href="tel:+919576517660" class="text-white font-medium hover:text-[#D8C3A5]">+91 95765 17660</a>
                                 </div>
                             </div>
 
@@ -59,7 +63,7 @@
                                 <svg class="w-5 h-5 text-[#D8C3A5] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                 <div>
                                     <span class="block text-gray-400 text-[11px]">Direct Email</span>
-                                    <a href="mailto:support@classiofashion.com" class="text-white font-medium hover:text-[#D8C3A5]">support@classiofashion.com</a>
+                                    <a href="mailto:support@classio.com" class="text-white font-medium hover:text-[#D8C3A5]">support@classio.com</a>
                                 </div>
                             </div>
 
@@ -67,14 +71,14 @@
                                 <svg class="w-5 h-5 text-[#D8C3A5] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 <div>
                                     <span class="block text-gray-400 text-[11px]">Boutique Hours</span>
-                                    <span class="text-white font-medium">Monday – Sunday: 10:30 AM – 9:30 PM</span>
+                                    <span class="text-white font-medium">Monday – Sunday: 10:00 AM – 8:30 PM IST</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="mt-6 pt-5 border-t border-white/10 flex items-center justify-between">
                             <span class="text-[11px] text-gray-400">Prefer instant messaging?</span>
-                            <a href="https://wa.me/911234567890" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366] text-white text-[11px] font-bold hover:bg-[#20ba59] transition-colors">
+                            <a href="https://wa.me/919576517660" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366] text-white text-[11px] font-bold hover:bg-[#20ba59] transition-colors">
                                 WhatsApp Concierge &rarr;
                             </a>
                         </div>

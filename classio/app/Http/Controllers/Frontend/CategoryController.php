@@ -14,9 +14,11 @@ class CategoryController extends Controller
         // Handle virtual collection slugs gracefully
         if ($slug === 'offers') {
             $category = (object)[
+                'id' => null,
                 'name' => 'Offers & Deals',
                 'slug' => 'offers',
-                'image_path' => 'images/classio/banner_offers.jpg',
+                'image_path' => 'images/classio/cat_accessories.jpg',
+                'image_url' => asset('images/classio/cat_accessories.jpg'),
                 'subcategories' => collect(),
             ];
             $query = Product::where('status', 'active')
@@ -29,9 +31,11 @@ class CategoryController extends Controller
                 ->with(['images', 'variants', 'category']);
         } elseif ($slug === 'trending') {
             $category = (object)[
+                'id' => null,
                 'name' => 'Trending Now',
                 'slug' => 'trending',
                 'image_path' => 'images/classio/hero_model.jpg',
+                'image_url' => asset('images/classio/hero_model.jpg'),
                 'subcategories' => collect(),
             ];
             $query = Product::where('status', 'active')
@@ -39,9 +43,11 @@ class CategoryController extends Controller
                 ->with(['images', 'variants', 'category']);
         } elseif ($slug === 'new-arrivals') {
             $category = (object)[
+                'id' => null,
                 'name' => 'New Arrivals',
                 'slug' => 'new-arrivals',
-                'image_path' => 'images/classio/banner_new_arrivals.jpg',
+                'image_path' => 'images/classio/cat_new_arrivals.jpg',
+                'image_url' => asset('images/classio/cat_new_arrivals.jpg'),
                 'subcategories' => collect(),
             ];
             $query = Product::where('status', 'active')
@@ -51,9 +57,11 @@ class CategoryController extends Controller
                 ->with(['images', 'variants', 'category']);
         } elseif ($slug === 'featured') {
             $category = (object)[
+                'id' => null,
                 'name' => 'Featured Collections',
                 'slug' => 'featured',
                 'image_path' => 'images/classio/brand_boutique.jpg',
+                'image_url' => asset('images/classio/brand_boutique.jpg'),
                 'subcategories' => collect(),
             ];
             $query = Product::where('status', 'active')
@@ -131,9 +139,11 @@ class CategoryController extends Controller
     {
         $q = trim($request->get('q', ''));
         $category = (object)[
+            'id' => null,
             'name' => $q ? "Search: \"{$q}\"" : "All Products",
             'slug' => 'search',
             'image_path' => 'images/classio/hero_model.jpg',
+            'image_url' => asset('images/classio/hero_model.jpg'),
             'subcategories' => collect(),
         ];
 

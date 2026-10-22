@@ -1,9 +1,15 @@
 @php
-    $footerWa = \App\Models\Setting::where('key_name', 'whatsapp_number')->value('value') ?? '911234567890';
+    $footerWa = \App\Models\Setting::where('key_name', 'whatsapp_number')->value('value') ?? '+91 95765 17660';
     $cleanFooterWa = preg_replace('/[^0-9]/', '', $footerWa);
-    $footerIg = \App\Models\Setting::where('key_name', 'instagram_url')->value('value') ?? 'https://instagram.com';
-    $footerFb = \App\Models\Setting::where('key_name', 'facebook_url')->value('value') ?? 'https://facebook.com';
-    $footerYt = \App\Models\Setting::where('key_name', 'youtube_url')->value('value') ?? 'https://youtube.com';
+    if (empty($cleanFooterWa)) {
+        $cleanFooterWa = '919576517660';
+    }
+    $footerPhone = \App\Models\Setting::where('key_name', 'contact_phone')->value('value') ?? '+91 95765 17660';
+    $footerAddress = \App\Models\Setting::where('key_name', 'store_address')->value('value') ?? '77, near Jaleshwar mandir, near Blinkit Office, LIC Colony, Jogipur, Kankarbagh, Bankman Colony, Patna, Bihar 800026';
+    $footerMapsUrl = \App\Models\Setting::where('key_name', 'google_maps_url')->value('value') ?? 'https://maps.app.goo.gl/oziQjtasd953vBiY7';
+    $footerIg = \App\Models\Setting::where('key_name', 'instagram_url')->value('value') ?? 'https://www.instagram.com/_classio_07_/';
+    $footerFb = \App\Models\Setting::where('key_name', 'facebook_url')->value('value') ?? 'https://www.facebook.com/profile.php?id=61585512925640';
+    $footerYt = \App\Models\Setting::where('key_name', 'youtube_url')->value('value') ?? 'https://youtube.com/@classio';
 @endphp
 <footer class="bg-[#0B1A2C] text-white pt-12 sm:pt-14 select-none border-t border-[#D8C3A5]/15">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,23 +77,26 @@
 
             <!-- Store Information -->
             <div>
-                <h4 class="font-sans text-[11px] font-bold uppercase tracking-widest text-[#E5D5BC] mb-4 sm:mb-5">Store Information</h4>
+                <h4 class="font-sans text-[11px] font-bold uppercase tracking-widest text-[#E5D5BC] mb-4 sm:mb-5">Flagship Boutique</h4>
                 <ul class="space-y-3 sm:space-y-4 font-sans text-xs text-gray-300/80">
                     <li class="flex items-start">
                         <svg class="w-4 h-4 mr-3 text-[#D8C3A5] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         <div>
                             <span class="text-white font-medium block">Classio Flagship Boutique</span>
-                            <span class="text-gray-300/80">Exhibition Road, Patna, Bihar - 800001</span>
-                            <a href="{{ route('stores') }}" class="text-[11px] text-[#D8C3A5] hover:underline block mt-1">View All Stores &rarr;</a>
+                            <span class="text-gray-300/80 leading-relaxed block">{{ $footerAddress }}</span>
+                            <a href="{{ $footerMapsUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] text-[#D8C3A5] hover:underline mt-1.5 font-semibold">
+                                <span>📍 Open in Google Maps Pin</span>
+                                <span>&nearr;</span>
+                            </a>
                         </div>
                     </li>
                     <li class="flex items-center">
                         <svg class="w-4 h-4 mr-3 text-[#D8C3A5] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                        <a href="tel:+911234567890" class="hover:text-white transition-colors">+91 12345 67890</a>
+                        <a href="tel:{{ preg_replace('/[^0-9+]/', '', $footerPhone) }}" class="hover:text-white transition-colors font-medium">{{ $footerPhone }}</a>
                     </li>
                     <li class="flex items-center">
-                        <svg class="w-4 h-4 mr-3 text-[#D8C3A5] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        <a href="mailto:support@classiofashion.com" class="hover:text-white transition-colors">support@classiofashion.com</a>
+                        <svg class="w-4 h-4 mr-3 text-[#D8C3A5] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.12.553 4.184 1.6 6L.515 24l6.115-1.603c1.745.955 3.738 1.458 5.401 1.458 6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm3.565 17.202c-.15.429-.861.815-1.2.86-.312.042-.718.118-2.072-.444-1.642-.683-2.695-2.355-2.775-2.463-.075-.107-.665-.884-.665-1.688s.416-1.192.56-1.353c.143-.161.312-.201.417-.201.104 0 .21.002.296.006.095.004.22-.036.335.241.12.285.405.992.44 1.064.036.075.06.161.008.267-.052.107-.078.174-.156.267-.078.095-.164.205-.233.285-.078.084-.162.176-.07.336.091.161.405.674.871 1.091.603.538 1.109.704 1.268.784.161.078.252.062.348-.046.094-.108.406-.474.516-.638.109-.161.218-.135.362-.08.143.052.909.43 1.064.507.156.078.26.118.298.183.037.062.037.37-.113.8z"/></svg>
+                        <a href="https://wa.me/{{ $cleanFooterWa }}" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">WhatsApp Order: {{ $footerWa }}</a>
                     </li>
                 </ul>
             </div>

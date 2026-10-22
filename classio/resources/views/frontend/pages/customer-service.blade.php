@@ -68,7 +68,7 @@
                         </div>
                         <h4 class="font-serif text-base font-bold text-[#D8C3A5]">Telephone Concierge</h4>
                         <p class="text-xs text-gray-300 mt-1">Direct priority client advisor line</p>
-                        <a href="tel:+911234567890" class="text-sm font-bold text-white mt-2 hover:text-[#D8C3A5]">+91 12345 67890</a>
+                        <a href="tel:+919576517660" class="text-sm font-bold text-white mt-2 hover:text-[#D8C3A5]">+91 95765 17660</a>
                     </div>
 
                     <div class="flex flex-col items-center md:items-start">
@@ -77,7 +77,7 @@
                         </div>
                         <h4 class="font-serif text-base font-bold text-[#D8C3A5]">WhatsApp Live</h4>
                         <p class="text-xs text-gray-300 mt-1">Instant replies for styling & stock</p>
-                        <a href="https://wa.me/911234567890" target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-white mt-2 hover:text-[#25D366]">Chat on WhatsApp &rarr;</a>
+                        <a href="https://wa.me/919576517660" target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-white mt-2 hover:text-[#25D366]">Chat on WhatsApp &rarr;</a>
                     </div>
 
                     <div class="flex flex-col items-center md:items-start">
@@ -86,7 +86,7 @@
                         </div>
                         <h4 class="font-serif text-base font-bold text-[#D8C3A5]">Email Advisory</h4>
                         <p class="text-xs text-gray-300 mt-1">Detailed inquiries & order issues</p>
-                        <a href="mailto:support@classiofashion.com" class="text-sm font-bold text-white mt-2 hover:text-[#D8C3A5]">support@classiofashion.com</a>
+                        <a href="mailto:support@classio.com" class="text-sm font-bold text-white mt-2 hover:text-[#D8C3A5]">support@classio.com</a>
                     </div>
                 </div>
             </div>

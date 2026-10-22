@@ -24,6 +24,7 @@
     <x-footer />
     <x-whatsapp-cta />
     <x-notify-modal />
+    <x-popup-banner />
 
     @stack('scripts')
 </body>

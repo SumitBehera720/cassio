@@ -26,7 +26,7 @@ class ShowcaseSeeder extends Seeder
             ['name' => 'Gifts & Accessories', 'slug' => 'gifts-accessories', 'image_path' => 'images/classio/cat_gifts.jpg', 'sort_order' => 7],
             ['name' => 'Electronics & Audio', 'slug' => 'electronics-audio', 'image_path' => 'images/classio/cat_electronics.jpg', 'sort_order' => 8],
             ['name' => 'New Arrivals', 'slug' => 'new-arrivals', 'image_path' => 'images/classio/cat_new_arrivals.jpg', 'sort_order' => 9],
-            ['name' => 'Offers & Deals', 'slug' => 'offers', 'image_path' => null, 'sort_order' => 10],
+            ['name' => 'Offers & Deals', 'slug' => 'offers', 'image_path' => 'images/classio/cat_accessories.jpg', 'sort_order' => 10],
         ];
 
         $categories = [];

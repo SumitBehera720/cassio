@@ -1,7 +1,10 @@
 <x-layout.app :categories="$categories">
     @php
-        $whatsappNumber = \App\Models\Setting::where('key_name', 'whatsapp_number')->value('value') ?? '911234567890';
+        $whatsappNumber = \App\Models\Setting::where('key_name', 'whatsapp_number')->value('value') ?? '+91 95765 17660';
         $cleanNumber = preg_replace('/[^0-9]/', '', $whatsappNumber);
+        if (empty($cleanNumber)) {
+            $cleanNumber = '919576517660';
+        }
 
         $galleryImages = $product->images->map(fn($img) => $img->image_url)->values();
         if ($galleryImages->isEmpty()) {

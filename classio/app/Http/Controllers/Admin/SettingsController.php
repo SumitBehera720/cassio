@@ -13,19 +13,20 @@ class SettingsController extends Controller
         // Query key_name to avoid SQL column missing error
         $settings = Setting::pluck('value', 'key_name')->toArray();
         
-        // Provide sensible defaults if not yet set
+        // Provide actual store defaults
         $defaults = [
             'store_name' => 'CLASSIO',
             'store_tagline' => 'INSPIRED BY YOU',
-            'whatsapp_number' => '+91 91234 56789',
+            'whatsapp_number' => '+91 95765 17660',
             'contact_email' => 'support@classio.com',
-            'contact_phone' => '+91 91234 56789',
-            'support_hours' => 'Mon - Sat: 10:00 AM - 8:00 PM IST',
-            'store_address' => 'Classio Luxury Flagship Store, Linking Road, Bandra West, Mumbai 400050, India',
+            'contact_phone' => '+91 95765 17660',
+            'support_hours' => 'Mon - Sat: 10:00 AM - 8:30 PM IST',
+            'store_address' => '77, near Jaleshwar mandir, near Blinkit Office, LIC Colony, Jogipur, Kankarbagh, Bankman Colony, Patna, Bihar 800026',
+            'google_maps_url' => 'https://maps.app.goo.gl/oziQjtasd953vBiY7',
             'announcement_text' => 'Complimentary Express Delivery & Luxury Gift Packaging on All Orders',
             'announcement_active' => '1',
-            'instagram_url' => 'https://instagram.com/classio_official',
-            'facebook_url' => 'https://facebook.com/classio.luxury',
+            'instagram_url' => 'https://www.instagram.com/_classio_07_/',
+            'facebook_url' => 'https://www.facebook.com/profile.php?id=61585512925640',
             'youtube_url' => 'https://youtube.com/@classio',
         ];
 
@@ -44,6 +45,7 @@ class SettingsController extends Controller
             'contact_phone' => 'nullable|string|max:30',
             'support_hours' => 'nullable|string|max:100',
             'store_address' => 'nullable|string|max:1000',
+            'google_maps_url' => 'nullable|url|max:500',
             'announcement_text' => 'nullable|string|max:500',
             'announcement_active' => 'nullable|in:0,1',
             'instagram_url' => 'nullable|url|max:255',
@@ -59,6 +61,7 @@ class SettingsController extends Controller
             'contact_phone',
             'support_hours',
             'store_address',
+            'google_maps_url',
             'announcement_text',
             'announcement_active',
             'instagram_url',

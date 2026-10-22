@@ -130,10 +130,26 @@
                 </div>
             </div>
 
-            <div>
-                <label for="store_address" class="block text-xs font-semibold uppercase tracking-wider text-gray-700 mb-1.5">Flagship Store Full Address</label>
-                <textarea id="store_address" name="store_address" rows="3" class="w-full rounded-lg border-gray-300 py-2.5 px-3.5 text-sm shadow-sm focus:border-classio-navy focus:ring-classio-navy">{{ old('store_address', $settings['store_address'] ?? '') }}</textarea>
-                <p class="mt-1.5 text-xs text-gray-400">Include building number, street, landmark, city, and pincode.</p>
+            <div class="space-y-4">
+                <div>
+                    <label for="store_address" class="block text-xs font-semibold uppercase tracking-wider text-gray-700 mb-1.5">Flagship Store Full Address</label>
+                    <textarea id="store_address" name="store_address" rows="3" class="w-full rounded-lg border-gray-300 py-2.5 px-3.5 text-sm shadow-sm focus:border-classio-navy focus:ring-classio-navy">{{ old('store_address', $settings['store_address'] ?? '') }}</textarea>
+                    <p class="mt-1.5 text-xs text-gray-400">Include building number, street, landmark, city, and pincode.</p>
+                </div>
+
+                <div>
+                    <label for="google_maps_url" class="block text-xs font-semibold uppercase tracking-wider text-gray-700 mb-1.5">Google Maps Pin / Location Link</label>
+                    <div class="flex gap-2">
+                        <input type="url" name="google_maps_url" id="google_maps_url" value="{{ old('google_maps_url', $settings['google_maps_url'] ?? 'https://maps.app.goo.gl/oziQjtasd953vBiY7') }}" placeholder="https://maps.app.goo.gl/..." class="w-full rounded-lg border-gray-300 py-2.5 px-3.5 text-sm shadow-sm focus:border-classio-navy focus:ring-classio-navy">
+                        @if(!empty($settings['google_maps_url']))
+                            <a href="{{ $settings['google_maps_url'] }}" target="_blank" class="shrink-0 px-3 py-2.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-xs font-semibold flex items-center gap-1 border border-blue-200">
+                                <span>Test Pin</span>
+                                <span>↗</span>
+                            </a>
+                        @endif
+                    </div>
+                    <p class="mt-1.5 text-xs text-gray-400">Link used for directions and store map navigation buttons.</p>
+                </div>
             </div>
         </div>
 

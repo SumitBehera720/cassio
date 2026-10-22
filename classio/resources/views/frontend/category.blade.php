@@ -18,7 +18,12 @@
     </div>
 
     @php
-        $bannerImg = $category->image_url;
+        $bannerImg = null;
+        if (isset($category->image_url)) {
+            $bannerImg = $category->image_url;
+        } elseif (isset($category->image_path) && $category->image_path) {
+            $bannerImg = str_starts_with($category->image_path, 'http') ? $category->image_path : asset($category->image_path);
+        }
     @endphp
 
     <!-- 2. Category Hero -->

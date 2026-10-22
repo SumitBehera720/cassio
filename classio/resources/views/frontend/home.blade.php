@@ -453,7 +453,10 @@
         </div>
     </section>
 
-    <!-- 11. INSTAGRAM GALLERY -->
+    <!-- 11. REELS SHOWCASE -->
+    <x-reels-section />
+
+    <!-- 12. INSTAGRAM GALLERY -->
     <x-instagram-gallery />
 
     <!-- 12. NEWSLETTER SIGNUP BANNER (Stay in Style) -->

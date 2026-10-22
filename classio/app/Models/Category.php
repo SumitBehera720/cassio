@@ -22,7 +22,7 @@ class Category extends Model
     public function getImageUrlAttribute(): ?string
     {
         if (!$this->image_path) {
-            return null;
+            return asset('images/classio/cat_accessories.jpg');
         }
 
         if (str_starts_with($this->image_path, 'http://') || str_starts_with($this->image_path, 'https://')) {
