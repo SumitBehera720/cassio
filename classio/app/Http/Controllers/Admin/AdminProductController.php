@@ -14,10 +14,15 @@ class AdminProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with(['category', 'variants']);
+        $query = Product::with(['category', 'subcategory', 'variants', 'images']);
         
         if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $search = trim($request->search);
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('slug', 'like', '%' . $search . '%')
+                  ->orWhere('description', 'like', '%' . $search . '%');
+            });
         }
 
         if ($request->filled('category_id')) {
@@ -27,11 +32,30 @@ class AdminProductController extends Controller
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
+
+        if ($request->filled('stock')) {
+            if ($request->stock === 'in_stock') {
+                $query->whereHas('variants', function($q) {
+                    $q->where('availability', 'in_stock');
+                });
+            } elseif ($request->stock === 'out_of_stock') {
+                $query->whereDoesntHave('variants', function($q) {
+                    $q->where('availability', 'in_stock');
+                });
+            }
+        }
         
         $products = $query->orderBy('created_at', 'desc')->paginate(20)->withQueryString();
         $categories = Category::orderBy('name')->get();
 
-        return view('admin.products.index', compact('products', 'categories'));
+        $totalCount = Product::count();
+        $activeCount = Product::where('status', 'active')->count();
+        $draftCount = Product::where('status', 'draft')->count();
+        $archivedCount = Product::where('status', 'archived')->count();
+
+        return view('admin.products.index', compact(
+            'products', 'categories', 'totalCount', 'activeCount', 'draftCount', 'archivedCount'
+        ));
     }
 
     public function create()

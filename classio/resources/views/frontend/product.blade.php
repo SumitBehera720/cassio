@@ -3,14 +3,7 @@
         $whatsappNumber = \App\Models\Setting::where('key_name', 'whatsapp_number')->value('value') ?? '911234567890';
         $cleanNumber = preg_replace('/[^0-9]/', '', $whatsappNumber);
 
-        $resolveImg = function($path) {
-            if (!$path) return asset('images/classio/product_coming_soon.jpg');
-            if (str_starts_with($path, 'http')) return $path;
-            if (str_starts_with($path, 'images/')) return asset($path);
-            return Storage::url($path);
-        };
-
-        $galleryImages = $product->images->map(fn($img) => $resolveImg($img->image_path))->values();
+        $galleryImages = $product->images->map(fn($img) => $img->image_url)->values();
         if ($galleryImages->isEmpty()) {
             $galleryImages = collect([asset('images/classio/product_coming_soon.jpg')]);
         }

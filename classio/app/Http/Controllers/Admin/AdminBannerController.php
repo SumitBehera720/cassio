@@ -10,10 +10,43 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminBannerController extends Controller
 {
-    public function index()
+    const VALID_PLACEMENTS = [
+        'hero_slider',
+        'ladies_collection',
+        'gents_collection',
+        'watches_perfumes',
+        'category_banner',
+        'editorial',
+        'offers'
+    ];
+
+    public function index(Request $request)
     {
-        $banners = Banner::orderBy('placement_section')->orderBy('sort_order')->paginate(20);
-        return view('admin.banners.index', compact('banners'));
+        $query = Banner::query();
+
+        if ($request->filled('placement')) {
+            $query->where('placement_section', $request->placement);
+        }
+
+        if ($request->filled('status')) {
+            if ($request->status === 'active') {
+                $query->where('is_active', true);
+            } elseif ($request->status === 'inactive') {
+                $query->where('is_active', false);
+            }
+        }
+
+        $banners = $query->orderBy('placement_section')
+                         ->orderBy('sort_order')
+                         ->paginate(20)
+                         ->withQueryString();
+
+        $placementCounts = Banner::selectRaw('placement_section, count(*) as count')
+                                ->groupBy('placement_section')
+                                ->pluck('count', 'placement_section')
+                                ->toArray();
+
+        return view('admin.banners.index', compact('banners', 'placementCounts'));
     }
 
     public function create()
@@ -24,29 +57,30 @@ class AdminBannerController extends Controller
     public function store(Request $request, CloudinaryService $cloudinary)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'placement_section' => 'required|in:hero_slider,category_banner,editorial,offers',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'image_url' => 'nullable|string|max:1000',
+            'placement_section' => 'required|in:' . implode(',', self::VALID_PLACEMENTS),
             'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:255',
-            'link_url' => 'nullable|url|max:255',
+            'link_url' => 'nullable|string|max:255',
             'is_active' => 'boolean',
-            'sort_order' => 'integer'
+            'sort_order' => 'nullable|integer'
         ]);
 
-        $data = $request->except('image');
+        if (!$request->hasFile('image') && !$request->filled('image_url')) {
+            return back()->withErrors(['image' => 'Please provide either a banner image file or an image URL.'])->withInput();
+        }
+
+        $data = $request->except(['image', 'image_url']);
         $data['is_active'] = $request->has('is_active');
         $data['sort_order'] = $request->sort_order ?? 0;
-        
-        $folderMap = [
-            'hero_slider' => 'banners/hero',
-            'category_banner' => 'banners/category',
-            'editorial' => 'banners/editorial',
-            'offers' => 'banners/offers',
-        ];
-        $folder = $folderMap[$request->placement_section] ?? 'banners/general';
-        
-        $result = $cloudinary->upload($request->file('image'), $folder);
-        $data['image_path'] = $result['secure_url'];
+
+        if ($request->hasFile('image')) {
+            $folder = 'banners/' . $request->placement_section;
+            $data['image_path'] = $this->handleImageUpload($request->file('image'), $folder, $cloudinary);
+        } else {
+            $data['image_path'] = $request->image_url;
+        }
 
         Banner::create($data);
 
@@ -61,40 +95,25 @@ class AdminBannerController extends Controller
     public function update(Request $request, Banner $banner, CloudinaryService $cloudinary)
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'placement_section' => 'required|in:hero_slider,category_banner,editorial,offers',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'image_url' => 'nullable|string|max:1000',
+            'placement_section' => 'required|in:' . implode(',', self::VALID_PLACEMENTS),
             'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:255',
-            'link_url' => 'nullable|url|max:255',
+            'link_url' => 'nullable|string|max:255',
             'is_active' => 'boolean',
-            'sort_order' => 'integer'
+            'sort_order' => 'nullable|integer'
         ]);
 
-        $data = $request->except('image');
+        $data = $request->except(['image', 'image_url']);
         $data['is_active'] = $request->has('is_active');
         $data['sort_order'] = $request->sort_order ?? 0;
 
         if ($request->hasFile('image')) {
-            if ($banner->image_path) {
-                if (strpos($banner->image_path, 'res.cloudinary.com') !== false) {
-                    try {
-                        $cloudinary->delete($banner->image_path);
-                    } catch (\Exception $e) {}
-                } elseif (Storage::disk('public')->exists($banner->image_path)) {
-                    Storage::disk('public')->delete($banner->image_path);
-                }
-            }
-            
-            $folderMap = [
-                'hero_slider' => 'banners/hero',
-                'category_banner' => 'banners/category',
-                'editorial' => 'banners/editorial',
-                'offers' => 'banners/offers',
-            ];
-            $folder = $folderMap[$request->placement_section] ?? 'banners/general';
-            
-            $result = $cloudinary->upload($request->file('image'), $folder);
-            $data['image_path'] = $result['secure_url'];
+            $folder = 'banners/' . $request->placement_section;
+            $data['image_path'] = $this->handleImageUpload($request->file('image'), $folder, $cloudinary);
+        } elseif ($request->filled('image_url')) {
+            $data['image_path'] = $request->image_url;
         }
 
         $banner->update($data);
@@ -109,6 +128,8 @@ class AdminBannerController extends Controller
                 try {
                     $cloudinary->delete($banner->image_path);
                 } catch (\Exception $e) {}
+            } elseif (file_exists(public_path($banner->image_path)) && str_starts_with($banner->image_path, 'uploads/')) {
+                @unlink(public_path($banner->image_path));
             } elseif (Storage::disk('public')->exists($banner->image_path)) {
                 Storage::disk('public')->delete($banner->image_path);
             }
@@ -117,5 +138,31 @@ class AdminBannerController extends Controller
         $banner->delete();
 
         return redirect()->route('admin.banners.index')->with('success', 'Banner deleted successfully.');
+    }
+
+    /**
+     * Safely upload image to Cloudinary or fallback to local public uploads.
+     */
+    protected function handleImageUpload($file, string $folder, CloudinaryService $cloudinary): string
+    {
+        if (env('CLOUDINARY_CLOUD_NAME') && env('CLOUDINARY_API_KEY') && env('CLOUDINARY_API_SECRET')) {
+            try {
+                $result = $cloudinary->upload($file, $folder);
+                if (!empty($result['secure_url'])) {
+                    return $result['secure_url'];
+                }
+            } catch (\Exception $e) {
+                // Cloudinary failed or timed out, fall back to local disk
+            }
+        }
+
+        $destination = public_path('uploads/banners');
+        if (!is_dir($destination)) {
+            @mkdir($destination, 0755, true);
+        }
+        $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $file->move($destination, $filename);
+        
+        return 'uploads/banners/' . $filename;
     }
 }

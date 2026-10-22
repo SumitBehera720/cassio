@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <div class="col-span-full" x-data="{ imagePreview: '{{ $category->image_path ? Storage::url($category->image_path) : '' }}' }">
+            <div class="col-span-full" x-data="{ imagePreview: '{{ $category->image_url ?? '' }}' }">
                 <label for="image" class="block text-sm font-medium leading-6 text-gray-900">Category Image</label>
                 <div class="mt-2 flex items-center gap-x-3">
                     <template x-if="imagePreview">
@@ -72,7 +72,7 @@
                                 reader.onload = (e) => { imagePreview = e.target.result };
                                 reader.readAsDataURL(file);
                             } else {
-                                imagePreview = '{{ $category->image_path ? Storage::url($category->image_path) : '' }}';
+                                imagePreview = '{{ $category->image_url ?? '' }}';
                             }
                         ">
                         <p class="text-xs text-gray-500">Leave blank to keep existing image</p>

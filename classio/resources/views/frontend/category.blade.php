@@ -18,7 +18,7 @@
     </div>
 
     @php
-        $bannerImg = $category->image_path ? (str_starts_with($category->image_path, 'http') ? $category->image_path : (str_starts_with($category->image_path, 'images/') ? asset($category->image_path) : Storage::url($category->image_path))) : null;
+        $bannerImg = $category->image_url;
     @endphp
 
     <!-- 2. Category Hero -->

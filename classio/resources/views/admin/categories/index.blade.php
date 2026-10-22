@@ -44,8 +44,8 @@
                         @forelse($categories as $category)
                         <tr>
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
-                                @if($category->image_path)
-                                    <img src="{{ Storage::url($category->image_path) }}" alt="{{ $category->name }}" class="h-10 w-10 object-cover rounded bg-gray-100">
+                                @if($category->image_url)
+                                    <img src="{{ $category->image_url }}" alt="{{ $category->name }}" class="h-10 w-10 object-cover rounded bg-gray-100">
                                 @else
                                     <div class="h-10 w-10 rounded bg-gray-100 flex items-center justify-center text-gray-500 font-bold">
                                         {{ substr($category->name, 0, 1) }}

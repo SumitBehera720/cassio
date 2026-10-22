@@ -140,7 +140,7 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                     @foreach($product->images as $image)
                     <div class="relative group rounded-lg overflow-hidden border border-gray-200">
-                        <img src="{{ Storage::url($image->image_path) }}" alt="" class="w-full h-32 object-cover {{ $image->is_primary ? 'ring-2 ring-classio-champagne' : '' }}">
+                        <img src="{{ $image->image_url }}" alt="" class="w-full h-32 object-cover {{ $image->is_primary ? 'ring-2 ring-classio-champagne' : '' }}">
                         @if($image->is_primary)
                             <div class="absolute top-2 left-2 bg-classio-champagne text-white text-[10px] font-bold px-2 py-1 rounded">PRIMARY</div>
                         @endif
