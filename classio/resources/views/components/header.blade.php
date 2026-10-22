@@ -201,7 +201,7 @@
                             </a>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="text-gray-300 hover:text-[#D8C3A5] transition-colors p-1 flex items-center gap-1" aria-label="Sign In" title="Customer / Admin Sign In">
+                        <a href="{{ route('login') }}" class="text-gray-300 hover:text-[#D8C3A5] transition-colors p-1 flex items-center gap-1" aria-label="Sign In" title="Sign In">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         </a>
                     @endauth
