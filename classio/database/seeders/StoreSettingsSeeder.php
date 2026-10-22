@@ -25,7 +25,7 @@ class StoreSettingsSeeder extends Seeder
         foreach ($settings as $key => $value) {
             Setting::updateOrCreate(
                 ['key_name' => $key],
-                ['value' => $value, 'group_name' => 'general']
+                ['value' => $value]
             );
         }
 
